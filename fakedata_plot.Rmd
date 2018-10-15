@@ -1,0 +1,50 @@
+---
+title: "FakeData_boxplots"
+author: "Cheryl"
+date: "10/15/2018"
+output: html_document
+---
+Load packages
+```{r setup}
+#install.packages("tidyverse")
+#install.packages("ggplot2")
+library(tidyverse)
+library(ggplot2)
+```
+
+Read fake data file into R
+```{r read data}
+fake <- read_csv("GenePanel_FakeData.csv")
+# View(fake)
+```
+Reshape data so every observation is in it's own row
+```{r reshape}
+fake <- fake %>% 
+  gather("treatment", expression, 2:17) 
+#View(fake)
+```
+
+Select data for my favorite genes
+```{r select data}
+subset <- fake %>% 
+  filter(gene == c("CEBPD","KLF4") ) # <<--input your gene names here
+```
+
+Name replicate values for each treatment
+```{r group and plot}
+subset <- subset %>%
+  separate(treatment, c('treatment', 'rep'), sep = '_n', remove = TRUE) 
+```
+
+
+Make a boxplot for each gene by timepoint/treatment
+```{r group and plot}
+ggplot(data = subset) + 
+  geom_boxplot(aes(x=treatment, y=expression, fill=treatment)) +
+  facet_grid(gene ~.) +
+  theme_bw()
+```
+
+
+
+
