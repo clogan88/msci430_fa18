@@ -31,14 +31,14 @@ subset <- fake %>%
 ```
 
 Name replicate values for each treatment
-```{r group and plot}
+```{r separate replicates}
 subset <- subset %>%
   separate(treatment, c('treatment', 'rep'), sep = '_n', remove = TRUE) 
 ```
 
 
 Make a boxplot for each gene by timepoint/treatment
-```{r group and plot}
+```{r boxplot}
 ggplot(data = subset) + 
   geom_boxplot(aes(x=treatment, y=expression, fill=treatment)) +
   facet_grid(gene ~.) +
