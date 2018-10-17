@@ -33,7 +33,7 @@ subset <- fake %>%
 Name replicate values for each treatment
 ```{r separate replicates}
 subset <- subset %>%
-  separate(treatment, c('treatment', 'rep'), sep = '_n', remove = TRUE) 
+  separate(treatment, c('treatment','rep'), sep = '_', remove = TRUE) 
 ```
 
 
